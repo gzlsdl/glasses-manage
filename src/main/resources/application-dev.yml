@@ -1,0 +1,19 @@
+spring:
+  datasource:
+     name: dev
+     url: jdbc:mysql://111.230.95.206:3306/test?useUnicode=true&characterEncoding=utf8
+     username: root
+     password: zxcvbnm123...
+
+
+#reids
+redis:
+  host: 111.230.95.206
+  port: 6379
+  password: luxiaobo
+  auth:
+  max-idle: 5
+  max-total: 10
+  max-wait-millis: 3000
+
+

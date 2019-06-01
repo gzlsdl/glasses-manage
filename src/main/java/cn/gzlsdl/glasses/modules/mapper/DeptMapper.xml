@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gzlsdl.glasses.modules.dao.DeptMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.gzlsdl.glasses.modules.entity.Dept">
+        <id column="id" property="id" />
+        <result column="dept_name" property="deptName" />
+        <result column="parent_id" property="parentId" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <select id="queryList" resultType="cn.gzlsdl.glasses.modules.entity.Dept">
+        select t1.*,(select t2.dept_name from sys_dept t2 where t2.id=t1.parent_id) parentName
+         from sys_dept t1 where t1.del_flag=0
+        <if test="sql_filter != null">
+         and ${sql_filter}
+        </if>
+    </select>
+
+    <select id="queryDeptSubIdList" resultType="java.lang.Long">
+        select id from sys_dept where parent_id=#{parentId} and del_flag=0
+    </select>
+
+</mapper>

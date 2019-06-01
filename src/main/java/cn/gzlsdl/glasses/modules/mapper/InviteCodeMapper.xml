@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gzlsdl.glasses.modules.dao.InviteCodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.gzlsdl.glasses.modules.entity.InviteCode">
+        <id column="id" property="id" />
+        <result column="code" property="code" />
+        <result column="status" property="status" />
+        <result column="register_user" property="registerUser" />
+        <result column="create_time" property="createTime" />
+        <result column="register_time" property="registerTime" />
+    </resultMap>
+
+    <update id="updateRegisterUser" parameterType="java.lang.String">
+        update invite_code set register_user=#{phone,jdbcType=VARCHAR}
+        where code=#{inviteCode,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByCode" resultType="java.lang.String">
+        select register_user from invite_code
+        where code=#{inviteCode,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateStatusByInviteCode">
+        update invite_code set status=#{status,jdbcType=TINYINT}
+        where code=#{inviteCode,jdbcType=VARCHAR}
+    </update>
+
+</mapper>
