@@ -324,10 +324,6 @@ public class LoginController extends BaseController {
     }
 
 
-    @RequestMapping("/test")
-    public String test(){
-        return "success";
-    }
 
 
 }

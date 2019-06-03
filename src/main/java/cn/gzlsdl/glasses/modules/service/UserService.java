@@ -31,4 +31,6 @@ public interface UserService extends IService<User> {
     PageUtil queryPage(Map<String, Object> map);
 
     void update(User user);
+
+    void save(User user);
 }

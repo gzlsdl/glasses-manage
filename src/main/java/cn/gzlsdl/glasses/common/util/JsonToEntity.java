@@ -1,8 +1,11 @@
 package cn.gzlsdl.glasses.common.util;
 
 import cn.gzlsdl.glasses.modules.entity.Dept;
+import cn.gzlsdl.glasses.modules.entity.Role;
 import cn.gzlsdl.glasses.modules.entity.User;
 import com.alibaba.fastjson.JSONObject;
+
+import java.util.Date;
 
 
 /**
@@ -41,5 +44,23 @@ public class JsonToEntity {
         String deptId=jsonObject.getString("deptId");
         long dId=Long.parseLong(deptId);
         return dId;
+    }
+
+    public static Role jsonToRole(JSONObject jsonObject) {
+        String roleName=jsonObject.getString("roleName");
+        String deptId=jsonObject.getString("deptId");
+        long dId=Long.parseLong(deptId);
+        String remark=jsonObject.getString("remark");
+
+        Role role = new Role();
+        role.setRoleName(roleName);
+        role.setDeptId(dId);
+        role.setRemark(remark);
+        if (jsonObject.getString("roleId")!=null){
+            String roleId=jsonObject.getString("roleId");
+            long id=Long.parseLong(roleId);
+            role.setId(id);
+        }
+        return role;
     }
 }

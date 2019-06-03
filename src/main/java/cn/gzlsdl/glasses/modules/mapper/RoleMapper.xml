@@ -11,4 +11,12 @@
         <result column="create_time" property="createTime" />
     </resultMap>
 
+    <select id="queryMenuIdList" resultType="java.lang.Long">
+        select menu_id from sys_role_menu where role_id = #{value}
+    </select>
+
+    <select id="queryDeptIdList" resultType="java.lang.Long">
+        select dept_id from sys_role_dept where role_id = #{value}
+    </select>
+
 </mapper>

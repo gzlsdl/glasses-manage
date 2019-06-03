@@ -7,10 +7,12 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
 
 import java.util.Date;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -21,6 +23,7 @@ import java.io.Serializable;
  * @since 2019-05-21
  */
 @TableName("sys_role")
+@Data
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,55 +38,13 @@ public class Role implements Serializable {
     @TableField("create_time")
     private Date createTime;
 
+    @TableField(exist = false)
+    private String deptName;
+    @TableField(exist = false)
+    private List<Long> menuIdList;
+    @TableField(exist = false)
+    private List<Long> deptIdList;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Long getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-        ", id=" + id +
-        ", roleName=" + roleName +
-        ", remark=" + remark +
-        ", deptId=" + deptId +
-        ", createTime=" + createTime +
-        "}";
-    }
 }

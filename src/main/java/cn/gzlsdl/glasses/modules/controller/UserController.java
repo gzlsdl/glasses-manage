@@ -7,6 +7,7 @@ import cn.gzlsdl.glasses.modules.entity.User;
 import cn.gzlsdl.glasses.modules.service.UserService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,12 +36,12 @@ public class UserController extends BaseController {
      * Method list
      *
      *@author luxiaobo
-     *@date 2019/5/31
-     *分页管理，参数需包含有page（当前页码），limit（每页书数），sidx（排序所用字段），order（排序方式）
-     *
+     *@date 2019/6/3
+     * 分页
      * @param params (类型：String)
      * @return R
      */
+    @RequiresPermissions("sys:user:list")
     @RequestMapping(value = "/list")
     public R list(@RequestBody String params){
         JSONObject jsonObject=checkParams(params);
@@ -50,40 +51,42 @@ public class UserController extends BaseController {
         //从json中获取data
         PageUtil pageData=userService.queryPage(jsonObject);
 
-        return R.ok("分页成功").put("page",pageData);
-
+        return R.ok().put("page",pageData);
     }
+
 
 
     /**
      * Method info
      *
      *@author luxiaobo
-     *@date 2019/5/31
-     * 获取登录用户信息
+     *@date 2019/6/3
+     * 获取当前登录用户信息
      * @param params (类型：String)
      * @return R
      */
-    @RequestMapping("/info")
+    @RequestMapping(value = "/info",method = RequestMethod.POST)
     public R info(@RequestBody String params){
         JSONObject jsonObject=checkParams(params);
         if (jsonObject==null){
-            return R.error(-1,"sign签名校验失败");
+            return R.sign();
         }
         return R.ok().put("user",getUser());
     }
+
 
 
     /**
      * Method create
      *
      *@author luxiaobo
-     *@date 2019/5/31
+     *@date 2019/6/3
      * 新增用户
      * @param params (类型：String)
      * @return R
      */
-    @RequestMapping("/create")
+    @RequiresPermissions("sys:user:create")
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
     public R create(@RequestBody String params){
         JSONObject jsonObject=checkParams(params);
         if (jsonObject==null){
@@ -91,8 +94,8 @@ public class UserController extends BaseController {
         }
         //从json中获取data
         User user = JsonToEntity.jsonToUser(jsonObject);
-        userService.insert(user);
-        return R.ok("操作成功");
+        userService.save(user);
+        return R.ok();
     }
 
 

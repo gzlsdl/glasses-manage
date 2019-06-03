@@ -37,13 +37,15 @@ public class DeptController extends BaseController {
     public R list(@RequestBody String params){
         JSONObject jsonObject=checkParams(params);
         if (jsonObject==null){
-            return R.error(-1,"sign校验失败");
+            return R.sign();
         }
         List<Dept> deptList=deptService.queryList(jsonObject);
         return R.ok().put("list",deptList);
     }
 
 
+    @RequiresPermissions(value = "sys:dept:select")
+    @RequestMapping(value = "/select",method = RequestMethod.POST)
     public R select(@RequestBody String params){
         JSONObject jsonObject=checkParams(params);
         if (jsonObject==null){
@@ -53,6 +55,7 @@ public class DeptController extends BaseController {
         List<Dept> deptList=deptService.queryList(jsonObject);
         return R.ok().put("deptList",deptList);
     }
+
 
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)

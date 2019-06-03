@@ -212,5 +212,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     }
 
+    @Override
+    public void save(User user) {
+        user.setCreateTime(new Date());
+    }
+
 
 }
